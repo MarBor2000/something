@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         something
 // @namespace    http://tampermonkey.net/
-// @version      1.0.8
+// @version      1.0.0
 // @description  Heuheu
 // @author       Marssia
 // @match        *.margonem.pl/*
