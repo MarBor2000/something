@@ -8,8 +8,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      public-api.margonem.pl
 // @connect      discord.com
-// @updateURL
-// @downloadURL
+// @updateURL    https://github.com/MarBor2000/something/raw/refs/heads/main/something.user.js
+// @downloadURL  https://github.com/MarBor2000/something/raw/refs/heads/main/something.user.js
 // ==/UserScript==
 
 (function () {
