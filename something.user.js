@@ -81,7 +81,7 @@
     const DISCORD_WEBHOOK_83 =
         "https://discord.com/api/webhooks/1548792293945778197/I-rxi2NzFJnJDw0my-f1KelFHBzfjsr3EHo1xSB7_aeAO_xyvTqsIs5JdBCr6B0hmGDP";
 
-    const REFRESH_INTERVAL = 10000;
+    const REFRESH_INTERVAL = 2000;
 
     const TARGET_LEVELS = [271, 83];
 
