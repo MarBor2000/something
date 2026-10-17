@@ -46,8 +46,6 @@
     ];
 
     const KP_PLAYERS_83 = [
-        "Majk Na Bombie",
-        "Bibi Za Burtą",
         "Magiczny Ebolka",
         "Buzz King",
         "Ezekiel Szósty",
@@ -64,14 +62,13 @@
         "What Went Wrong",
         "Kulawy Sebek",
         "Skubik I",
-        "Entropy Core",
         "Szybszy Wojownik",
         "Avaniel",
         "Barol Za Burtą",
         "Kimik Niszczyciel",
-        "Butelka Wody",
         "Dosz",
-        "Werrien Prime"
+        "Prosztil Na Kica",
+        "Mroczny Shyyko"
     ];
 
 
