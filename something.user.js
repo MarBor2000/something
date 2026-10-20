@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Kumple Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.1.0
-// @description  Kumple Tracker + potencjalny resp 271 i 83 + minimalizacja
+// @version      1.1.1
+// @description  Szczurzenie
 // @author       Marssia
 // @match        *.margonem.pl/*
 // @grant        GM_xmlhttpRequest
@@ -489,6 +489,14 @@
             return;
         }
 
+        if (isMinimized || selectedLevel === "Mrozy") {
+            respawnBox.style.display = "none";
+            respawnBox.innerHTML = "";
+            return;
+        }
+
+        respawnBox.style.display = "block";
+
         if (selectedLevel === "Mrozy") {
             respawnBox.style.display = "none";
             respawnBox.innerHTML = "";
@@ -907,7 +915,9 @@
 
         if (respawnBox) {
             respawnBox.style.display =
-                "block";
+                selectedLevel === "Mrozy"
+                ? "none"
+            : "block";
         }
 
         if (
