@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kumple Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.1.0
 // @description  Kumple Tracker + potencjalny resp 271 i 83 + minimalizacja
 // @author       Marssia
 // @match        *.margonem.pl/*
@@ -482,14 +482,20 @@
     }
 
     function renderRespawn() {
-        const respawnBox =
-            document.getElementById(
-                "respawn-box"
-            );
+
+        const respawnBox = document.getElementById("respawn-box");
 
         if (!respawnBox) {
             return;
         }
+
+        if (selectedLevel === "Mrozy") {
+            respawnBox.style.display = "none";
+            respawnBox.innerHTML = "";
+            return;
+        }
+
+        respawnBox.style.display = "";
 
         const level =
             selectedLevel;
@@ -925,6 +931,19 @@
 }
 
     function renderContent() {
+
+        const respawn = document.getElementById("tracker-respawn");
+
+        if (respawn) {
+            if (selectedLevel === "Mrozy") {
+                respawn.style.display = "none";
+                respawn.innerHTML = "";
+            } else {
+                respawn.style.display = "";
+            }
+        }
+
+
         const content =
             document.getElementById(
                 "tracker-content"
@@ -958,7 +977,7 @@
                     color:#aaa;
                     font-size:11px;
                 ">
-                    Poziom ${level}
+                    ${level === "Mrozy" ? "Mrozy" : "Poziom " + level}
                 </div>
 
                 <div style="
@@ -1022,19 +1041,19 @@
                                 )}
                             </span>
 
+                            ${level !== "Mrozy" ? `
                             <span style="
-                                color:#666;
-                                font-size:9px;
-                                margin-left:5px;
-                            ">
-                                ${escapeHtml(
-                                    player.lvl !== undefined
-                                        ? player.lvl.toString()
-                                        : ""
-                                )}
-                            </span>
+                            color:#666;
+                            font-size:9px;
+                            margin-left:5px;">
+                            ${escapeHtml(
+                        player.lvl !== undefined
+                        ? player.lvl.toString()
+                        : ""
+                    )}</span>
+                    ` : ""}
                         </div>
-                    `;
+                        `;
                 }
             );
         }
