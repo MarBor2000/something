@@ -71,6 +71,20 @@
         "Mroczny Shyyko"
     ];
 
+    const MROZY_PLAYERS = [
+    "Skittle",
+    "Captain Africa",
+    "Litovel Visnovy Lezak",
+    "Avest",
+    "Noway William",
+    "Dziordzinka",
+    "Glen",
+    "Nerys",
+    "Yvienai",
+    "Cold Reaction",
+    "Kosior White Widow"
+    ];
+
 
 
     const DISCORD_WEBHOOK_271 = "https://discord.com/api/webhooks/1548792504508481596/YDA_eATLw0a6sYzRA49wYIl0PbRAyk2hues1lFDFAb4oZ0FSQmIUgrslh2TTQOulfLbF";
@@ -80,7 +94,7 @@
 
     const REFRESH_INTERVAL = 2000;
 
-    const TARGET_LEVELS = [271, 83];
+    const TARGET_LEVELS = [271, 83, "Mrozy"];
 
     const NOTIFICATION_THRESHOLD = 3;
 
@@ -129,12 +143,14 @@
 
     let playerCounts = {
         271: 0,
-        83: 0
+        83: 0,
+        "Mrozy": 0
     };
 
     let detectedPlayers = {
         271: [],
-        83: []
+        83: [],
+        "Mrozy": 0
     };
 
     let selectedLevel =
@@ -741,47 +757,35 @@
 
                 buttons.forEach(
                     function (button) {
-                        const count =
-                            playerCounts[
-                                level
-                            ] || 0;
+                        const count = playerCounts[level] || 0;
 
-                        const selected =
-                            selectedLevel ===
-                            level;
+                        if (level === "Mrozy") {
+                            const noPlayers = count === 0;
 
-                        const alert =
-                            count >=
-                            NOTIFICATION_THRESHOLD;
+                            button.classList.remove("level-alert");
 
-                        button.classList.toggle(
-                            "level-alert",
-                            alert
-                        );
+                            button.style.animation = "none";
+                            button.style.background = noPlayers ? "#14532d" : "#242424";
+                            button.style.color = noPlayers ? "#86efac" : "#aaa";
+                            button.style.borderColor = noPlayers ? "#22c55e" : "#3a3a3a";
 
-                        if (
-                            selected &&
-                            !alert
-                        ) {
-                            button.style.background =
-                                "#353535";
+                            return;
+                        }
 
-                            button.style.color =
-                                "#eee";
-                        } else if (
-                            alert
-                        ) {
-                            button.style.background =
-                                "#3b1d1b";
+                        const selected = selectedLevel === level;
+                        const alert = count >= NOTIFICATION_THRESHOLD;
 
-                            button.style.color =
-                                "#fff";
+                        button.classList.toggle("level-alert", alert);
+
+                        if (selected && !alert) {
+                            button.style.background = "#353535";
+                            button.style.color = "#eee";
+                        } else if (alert) {
+                            button.style.background = "#3b1d1b";
+                            button.style.color = "#fff";
                         } else {
-                            button.style.background =
-                                "#242424";
-
-                            button.style.color =
-                                "#aaa";
+                            button.style.background = "#242424";
+                            button.style.color = "#aaa";
                         }
                     }
                 );
@@ -1135,7 +1139,7 @@
     }
 
     function updateNotification() {
-        TARGET_LEVELS.forEach(
+        [271, 83].forEach(
             function (level) {
                 const count =
                     playerCounts[
@@ -1182,7 +1186,7 @@
 
 
     function updateRespawnTimers() {
-        TARGET_LEVELS.forEach(
+        [271, 83].forEach(
             function (level) {
                 const count =
                     playerCounts[
@@ -1347,21 +1351,22 @@
                 return;
             }
 
-            TARGET_LEVELS.forEach(
-                function (level) {
-                    const players =
-                        findTrackedPlayers(
-                            onlinePlayers,
-                            level
-                        );
+            [271, 83].forEach(function (level) {
+                const players = findTrackedPlayers(onlinePlayers, level);
 
-                    detectedPlayers[level] =
-                        players;
+                detectedPlayers[level] = players;
+                playerCounts[level] = players.length;
+            });
 
-                    playerCounts[level] =
-                        players.length;
-                }
-            );
+
+            const mrozyPlayers = onlinePlayers.filter(player =>
+                                                      MROZY_PLAYERS.some(nick =>
+                                                                         normalizePlayerName(nick) === normalizePlayerName(player.n)
+                                                                        )
+                                                     );
+
+            detectedPlayers["Mrozy"] = mrozyPlayers;
+            playerCounts["Mrozy"] = mrozyPlayers.length;
 
             renderContent();
             renderRespawn();
