@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kumple Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Szczurzenie
 // @author       Marssia
 // @match        *.margonem.pl/*
@@ -82,7 +82,9 @@
     "Nerys",
     "Yvienai",
     "Cold Reaction",
-    "Kosior White Widow"
+    "Kosior White Widow",
+    "Namzar",
+    "Viziana"
     ];
 
 
